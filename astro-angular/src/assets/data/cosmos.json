@@ -1,0 +1,122 @@
+{
+  "concepts": [
+    {
+      "id": "string-theory",
+      "title": "String Theory",
+      "category": "theory",
+      "summary": "A theoretical framework in physics that explains fundamental forces and particles as tiny vibrating strings rather than point-like dots.",
+      "keyPoints": [
+        "Replaces zero-dimensional point particles with one-dimensional strings.",
+        "Vibration patterns determine a particle's physical identity.",
+        "Aims to unify Gravity, Electromagnetism, Weak nuclear force, and Strong nuclear force."
+      ],
+      "history": [
+        "1960s: Originally developed to explain the strong nuclear force.",
+        "1970s: Physicists realized it includes graviton behavior.",
+        "1980s: First Superstring Revolution established five consistent theories.",
+        "1995: Edward Witten proposed M-theory, connecting all five into 11 dimensions."
+      ]
+    },
+    {
+      "id": "dark-matter",
+      "title": "Dark Matter",
+      "category": "theory",
+      "summary": "An invisible substance that does not emit, absorb, or reflect light, making it detectable primarily through its gravitational interaction with visible matter.",
+      "keyPoints": [
+        "Invisible to standard optical and astronomical telescopes.",
+        "Governs cosmic structure by holding galaxies and clusters together."
+      ],
+      "history": [
+        "1933: Fritz Zwicky studied galaxy clusters and proposed missing mass.",
+        "1970s: Vera Rubin and Kent Ford observed flat galactic rotation curves.",
+        "1980s-2000s: Cosmic Microwave Background measurements confirmed its presence."
+      ]
+    },
+    {
+      "id": "wormholes",
+      "title": "Wormholes",
+      "category": "theory",
+      "summary": "Also known as an Einstein-Rosen bridge, a hypothetical tunnel-like structure connecting two separate points in spacetime.",
+      "keyPoints": [
+        "Consists of two entry/exit mouths connected by a narrow throat.",
+        "Relativity equations suggest theoretical possibilities for shortcuts through space and time.",
+        "Requires hypothetical exotic matter with negative energy density to remain stable."
+      ],
+      "history": [
+        "1935: Proposed by Albert Einstein and Nathan Rosen.",
+        "1950s: Coined 'wormhole' by theoretical physicist John Archibald Wheeler."
+      ]
+    },
+    {
+      "id": "big-bang",
+      "title": "The Big Bang Theory",
+      "category": "theory",
+      "summary": "The prevailing cosmological model explaining that the Universe began as an extremely hot singularity approximately 13.8 billion years ago and continues expanding.",
+      "keyPoints": [
+        "Cosmic Microwave Background (CMB) radiation provides an afterglow snapshot of the early universe.",
+        "Galactic redshift observations demonstrate that galaxies are moving away from each other.",
+        "Light element abundances match nucleosynthesis predictions."
+      ],
+      "history": [
+        "1920s: Edwin Hubble observed galaxy expansion.",
+        "1949: Fred Hoyle coined the term 'Big Bang' during a BBC radio broadcast.",
+        "1965: Arno Penzias and Robert Wilson discovered the CMB."
+      ]
+    },
+    {
+      "id": "quasars",
+      "title": "Quasars",
+      "category": "phenomenon",
+      "summary": "Extremely luminous active galactic nuclei powered by supermassive black holes consuming surrounding celestial matter."
+    },
+    {
+      "id": "spaghettification",
+      "title": "Spaghettification",
+      "category": "phenomenon",
+      "summary": "The vertical stretching and horizontal compression of objects into long, thin shapes caused by extreme tidal gravitational forces near a black hole."
+    },
+    {
+      "id": "pulsars",
+      "title": "Pulsars",
+      "category": "phenomenon",
+      "summary": "Highly magnetized rotating neutron stars that emit beams of electromagnetic radiation out of their magnetic poles."
+    },
+    {
+      "id": "supernova",
+      "title": "Supernova",
+      "category": "phenomenon",
+      "summary": "A powerful and luminous stellar explosion occurring during the last evolutionary stages of a massive star."
+    },
+    {
+      "id": "stars",
+      "title": "Stars",
+      "category": "celestial",
+      "summary": "Luminous spheroids of plasma held together by their own gravity, generating heat and light via nuclear fusion."
+    },
+    {
+      "id": "planets",
+      "title": "Planets",
+      "category": "celestial",
+      "summary": "Large celestial bodies orbiting stars that possess sufficient mass for self-gravity to form a rounded shape."
+    },
+    {
+      "id": "nebulas",
+      "title": "Nebulas",
+      "category": "celestial",
+      "summary": "Interstellar clouds of dust, hydrogen, helium, and ionized gases that frequently serve as star-forming nurseries."
+    },
+    {
+      "id": "black-holes",
+      "title": "Black Holes",
+      "category": "celestial",
+      "summary": "Regions of spacetime where gravity is so strong that nothing, including light and radiation, can escape."
+    }
+  ],
+  "funFacts": [
+    "A day on Venus is longer than a year on Venus.",
+    "Neutron stars can spin hundreds of times per second.",
+    "One million Earths could fit inside the Sun.",
+    "The footprints on the Moon will last millions of years.",
+    "There are more stars in the universe than grains of sand on Earth."
+  ]
+}
