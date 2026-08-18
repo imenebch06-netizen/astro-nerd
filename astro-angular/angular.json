@@ -25,6 +25,13 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
+            "budgets": [
+  {
+    "type": "initial",
+    "maximumWarning": "1mb",
+    "maximumError": "2mb"
+  }
+],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
