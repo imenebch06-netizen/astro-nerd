@@ -1,0 +1,42 @@
+<div class="p-4 sm:p-6 max-w-7xl mx-auto space-y-8 text-[var(--text-main)]">
+  
+  <header class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-[var(--border-color)]">
+    <div class="space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-bold">
+        <mat-icon class="text-sm animate-rocket">rocket_launch</mat-icon> AstroSphere Engineering Suite
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-[var(--text-main)] tracking-tight">
+        Stargazer Observatory Lab
+      </h1>
+      <p class="text-[var(--text-muted)] text-sm max-w-2xl">
+        Inspect hardware schematics and utilities, solve component assembly puzzles, and test your knowledge of theoretical astrophysics.
+      </p>
+    </div>
+
+    <div class="flex p-1 bg-[var(--bg-subtle)] border border-[var(--border-color)] rounded-2xl">
+      <button (click)="activeTab.set('inspector')"
+              [class.!bg-[var(--bg-surface)]]="activeTab() === 'inspector'"
+              [class.shadow-md]="activeTab() === 'inspector'"
+              [class.!text-sky-600]="activeTab() === 'inspector'"
+              class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--text-muted)] transition-all">
+        <mat-icon class="text-base">biotech</mat-icon>
+        Hardware Inspector
+      </button>
+
+      <button (click)="activeTab.set('game')"
+              [class.!bg-[var(--bg-surface)]]="activeTab() === 'game'"
+              [class.shadow-md]="activeTab() === 'game'"
+              [class.!text-sky-600]="activeTab() === 'game'"
+              class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--text-muted)] transition-all">
+        <mat-icon class="text-base">gamepad</mat-icon>
+        Challenge Suite
+      </button>
+    </div>
+  </header>
+
+  @if (activeTab() === 'inspector') {
+    <app-telescope-inspector></app-telescope-inspector>
+  } @else {
+    <app-guessing-game></app-guessing-game>
+  }
+</div>

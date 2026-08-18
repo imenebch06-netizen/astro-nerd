@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "id": "1",
+      "title": "Andromeda Galaxy",
+      "category": "celestial",
+      "summary": "The nearest major galaxy to the Milky Way, located about 2.5 million light-years away.",
+      "keyPoints": ["Contains ~1 trillion stars", "On a collision course with the Milky Way in 4.5 billion years"]
+    },
+    {
+      "id": "2",
+      "title": "Quantum Entanglement",
+      "category": "theory",
+      "summary": "A physical phenomenon where entangled particles remain connected such that actions performed on one affect the other instantly.",
+      "keyPoints": ["Dubbed 'spooky action at a distance' by Einstein", "Fundamental to quantum computing"],
+      "history": ["1935: EPR paradox published", "2022: Nobel Prize awarded for experimental proof"]
+    }
+  ],
+  "funFacts": [
+    "One day on Venus is longer than one year on Venus.",
+    "Neutron stars can spin up to 600 times per second.",
+    "There are more trees on Earth than stars in the Milky Way galaxy."
+  ]
+}

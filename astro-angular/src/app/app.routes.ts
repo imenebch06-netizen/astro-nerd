@@ -8,11 +8,11 @@ export const routes: Routes = [
   },
   { 
     path: 'explore', 
-    loadComponent: () => import('./features/explore/explore.component').then(m => m.ExploreComponent) 
+    loadComponent: () => import('./features/explore/explore').then(m => m.ExploreComponent) 
   },
   { 
     path: 'theories', 
-    loadComponent: () => import('./features/theories/theories.component').then(m => m.TheoriesComponent) 
+    loadComponent: () => import('./features/theories/theories').then(m => m.TheoriesComponent) 
   },
   { 
     path: 'lab', 

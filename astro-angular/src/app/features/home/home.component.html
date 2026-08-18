@@ -1,0 +1,124 @@
+<div class="space-y-10">
+
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-100 via-sky-50 to-white dark:from-[#0f172a] dark:via-[#111c38] dark:to-[#070d19] p-8 border border-slate-200 dark:border-slate-800 shadow-lg transition-colors">
+    <div class="relative z-10 max-w-2xl space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 dark:bg-cyan-500/10 border border-sky-500/20 dark:border-cyan-500/30 text-sky-700 dark:text-cyan-400 text-xs font-bold">
+        <mat-icon class="text-sm animate-rocket">rocket_launch</mat-icon> Welcome to AstroSphere
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
+        Explore the Wonders of the <span class="text-sky-600 dark:text-cyan-400">Cosmos</span>
+      </h1>
+      <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
+        Dive into cosmic mysteries, from dazzling stars to quantum theories. Curated by Imene with real-time NASA telemetry and interactive stargazer tools.
+      </p>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a mat-flat-button routerLink="/explore" class="!bg-sky-600 dark:!bg-cyan-400 !text-white dark:!text-slate-950 font-bold !rounded-xl">
+          <mat-icon>explore</mat-icon> Explore Concepts
+        </a>
+        <a mat-stroked-button routerLink="/lab" class="!border-slate-300 dark:!border-slate-700 !text-slate-800 dark:!text-slate-200 !rounded-xl">
+          <mat-icon>gamepad</mat-icon> Stargazer Lab
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- NASA APOD Widget -->
+    <div class="lg:col-span-2 space-y-4">
+      <h2 class="text-xl font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+        <mat-icon class="text-sky-600 dark:text-cyan-400">today</mat-icon> NASA Picture of the Day
+      </h2>
+
+      <div class="relative rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 p-4 min-h-[350px] flex flex-col justify-center shadow-sm">
+        @if (loadingApod()) {
+          <div class="flex flex-col items-center justify-center gap-3 py-12">
+            <mat-icon class="text-3xl text-sky-500 animate-bounce">rocket_launch</mat-icon>
+            <span class="text-xs text-slate-500 dark:text-slate-400">Fetching AstroSphere live imagery from NASA...</span>
+          </div>
+        } @else if (apodData()) {
+          <div class="group relative rounded-xl overflow-hidden cursor-pointer" (click)="openApodModal()">
+            <img [src]="apodData()?.url" [alt]="apodData()?.title" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-90 flex flex-col justify-end p-6">
+              <span class="text-xs font-bold text-cyan-400 mb-1 flex items-center gap-1">
+                <mat-icon class="text-xs">rocket</mat-icon> {{ apodData()?.date }}
+              </span>
+              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">{{ apodData()?.title }}</h3>
+              <p class="text-xs text-slate-200 line-clamp-2 mt-1">{{ apodData()?.explanation }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+   <!-- Astro AI Chatbot Widget -->
+<div class="space-y-4">
+  <h2 class="text-xl font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+    <mat-icon class="text-sky-600 dark:text-cyan-400 animate-rocket">rocket_launch</mat-icon> 
+    Astro AI Assistant
+  </h2>
+
+  <div class="rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 p-4 flex flex-col justify-between h-[380px] shadow-sm">
+    
+    <!-- Live Chat Message Stream -->
+    <div #scrollContainer class="space-y-3 overflow-y-auto pr-1 flex-1 max-h-[230px]">
+      @for (msg of chatHistory(); track $index) {
+        <div [class.justify-end]="msg.sender === 'user'" class="flex items-start gap-2">
+          @if (msg.sender === 'ai') {
+            <div class="w-7 h-7 rounded-full bg-sky-500/10 dark:bg-cyan-500/10 border border-sky-500/30 flex items-center justify-center shrink-0">
+              <mat-icon class="text-sm text-sky-600 dark:text-cyan-400">rocket_launch</mat-icon>
+            </div>
+          }
+
+          <div [class.!bg-sky-600]="msg.sender === 'user'"
+               [class.!text-white]="msg.sender === 'user'"
+               [class.!rounded-br-none]="msg.sender === 'user'"
+               [class.!rounded-bl-none]="msg.sender === 'ai'"
+               class="bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 p-3 rounded-2xl text-xs leading-relaxed max-w-[85%] border border-slate-200/50 dark:border-slate-700/50 shadow-xs">
+            <p class="whitespace-pre-wrap">{{ msg.text }}</p>
+            <span class="text-[9px] opacity-60 block text-right mt-1 font-mono">{{ msg.time }}</span>
+          </div>
+        </div>
+      }
+
+      @if (isTyping()) {
+        <div class="flex items-center gap-2 text-xs text-sky-600 dark:text-cyan-400 italic py-1">
+          <mat-icon class="text-sm animate-spin">autorenew</mat-icon> 
+          {{ translateService.currentLang() === 'fr' ? 'Astro AI consulte les étoiles...' : 'Astro AI is consulting the stars...' }}
+        </div>
+      }
+    </div>
+
+    <!-- Quick Suggestions Chips -->
+    <div class="flex items-center gap-1.5 overflow-x-auto py-2 border-t border-slate-100 dark:border-slate-800/80 shrink-0">
+      <!-- Ajout des parenthèses quickPrompts() car c'est un computed Signal -->
+      @for (prompt of quickPrompts(); track prompt) {
+        <button (click)="sendMessage(prompt)" 
+                [disabled]="isTyping()"
+                class="text-[10px] font-semibold whitespace-nowrap px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-slate-800 text-sky-700 dark:text-cyan-400 border border-sky-200 dark:border-slate-700 hover:border-sky-500 transition-all disabled:opacity-50 cursor-pointer">
+          {{ prompt }}
+        </button>
+      }
+    </div>
+
+    <!-- Input Control Form -->
+    <div class="flex gap-2 pt-1 shrink-0">
+      <input type="text" 
+             [ngModel]="userQuery()" 
+             (ngModelChange)="userQuery.set($event)"
+             (keyup.enter)="sendMessage()"
+             [placeholder]="translateService.currentLang() === 'fr' ? 'Posez une question sur l\'espace...' : 'Ask Astro AI about space...'" 
+             class="flex-1 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-sky-500 transition-colors" />
+      
+      <button mat-flat-button 
+              (click)="sendMessage()" 
+              [disabled]="!userQuery().trim() || isTyping()"
+              class="!bg-sky-600 dark:!bg-cyan-400 !text-white dark:!text-slate-950 !rounded-xl !min-w-0 !px-3 disabled:opacity-40 cursor-pointer">
+        <mat-icon class="text-sm">send</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</div>
+</div>

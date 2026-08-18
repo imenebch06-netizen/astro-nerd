@@ -1,0 +1,242 @@
+<div class="space-y-10 p-4 sm:p-6 max-w-7xl mx-auto">
+
+  <!-- Header Banner -->
+  <header class="relative overflow-hidden">
+    <div class="relative z-10 max-w-3xl space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 dark:bg-cyan-500/10 border border-sky-500/20 dark:border-cyan-500/30 text-sky-700 dark:text-cyan-400 text-xs font-bold">
+        <mat-icon class="text-sm animate-rocket">rocket_launch</mat-icon> AstroSphere Catalog & Telemetry
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-[var(--text-main)]">
+        Explore Astrophysical Wonders
+      </h1>
+      <p class="text-[var(--text-muted)] max-w-3xl">
+        Browse categorized cosmic phenomena, theoretical physics frameworks, space agency discoveries, and live high-resolution telemetry from NASA archives.
+      </p>
+    </div>
+  </header>
+<!-- SECTION 1: CONCEPT CATALOG -->
+  <section class="space-y-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-[var(--border-color)]">
+      <div>
+        <h2 class="text-2xl font-black text-[var(--text-main)] flex items-center gap-2">
+          <mat-icon class="text-sky-500">menu_book</mat-icon> Cosmic Concepts Library
+        </h2>
+        <p class="text-xs text-[var(--text-muted)]">Verified principles curated with links to official scientific institutions.</p>
+      </div>
+
+      <div class="relative w-full md:w-72">
+        <mat-icon class="absolute left-3 top-2.5 text-xs text-[var(--text-muted)]">search</mat-icon>
+        <input type="text" 
+               [ngModel]="conceptSearchQuery()" 
+               (ngModelChange)="conceptSearchQuery.set($event)"
+               class="w-full bg-[var(--bg-subtle)] text-[var(--text-main)] border border-[var(--border-color)] rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-sky-500 transition-colors" 
+               placeholder="Search concepts, tags..." />
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="flex flex-wrap gap-2">
+      <button (click)="setCategory('all')"
+              [class.!bg-sky-600]="selectedCategory() === 'all'"
+              [class.!text-white]="selectedCategory() === 'all'"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-subtle)] text-[var(--text-muted)] border border-[var(--border-color)] transition-all flex items-center gap-1.5">
+        <mat-icon class="text-sm">apps</mat-icon> All Concepts
+      </button>
+
+      <button (click)="setCategory('celestial')"
+              [class.!bg-sky-600]="selectedCategory() === 'celestial'"
+              [class.!text-white]="selectedCategory() === 'celestial'"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-subtle)] text-[var(--text-muted)] border border-[var(--border-color)] transition-all flex items-center gap-1.5">
+        <mat-icon class="text-sm">public</mat-icon> Celestial Bodies
+      </button>
+
+      <button (click)="setCategory('phenomenon')"
+              [class.!bg-sky-600]="selectedCategory() === 'phenomenon'"
+              [class.!text-white]="selectedCategory() === 'phenomenon'"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-subtle)] text-[var(--text-muted)] border border-[var(--border-color)] transition-all flex items-center gap-1.5">
+        <mat-icon class="text-sm">bolt</mat-icon> Phenomena
+      </button>
+
+      <button (click)="setCategory('astrophysics')"
+              [class.!bg-sky-600]="selectedCategory() === 'astrophysics'"
+              [class.!text-white]="selectedCategory() === 'astrophysics'"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-subtle)] text-[var(--text-muted)] border border-[var(--border-color)] transition-all flex items-center gap-1.5">
+        <mat-icon class="text-sm">psychology</mat-icon> Astrophysics & Theories
+      </button>
+
+      <button (click)="setCategory('missions')"
+              [class.!bg-sky-600]="selectedCategory() === 'missions'"
+              [class.!text-white]="selectedCategory() === 'missions'"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--bg-subtle)] text-[var(--text-muted)] border border-[var(--border-color)] transition-all flex items-center gap-1.5">
+        <mat-icon class="text-sm">rocket_launch</mat-icon> Missions & Telescopes
+      </button>
+    </div>
+
+    <!-- Concept Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (concept of paginatedConcepts(); track concept.id) {
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:border-sky-500/50 transition-all duration-300 group">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] uppercase font-mono font-bold tracking-wider px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-cyan-400 border border-sky-500/20 flex items-center gap-1">
+                <mat-icon class="text-[10px]">rocket</mat-icon> {{ concept.categoryLabel }}
+              </span>
+            </div>
+
+            <h3 class="text-xl font-black text-[var(--text-main)] group-hover:text-sky-500 transition-colors">{{ concept.title }}</h3>
+            <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">{{ concept.summary }}</p>
+            <p class="text-xs text-[var(--text-main)] bg-[var(--bg-subtle)] p-3 rounded-2xl border border-[var(--border-color)] leading-relaxed">
+              {{ concept.details }}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5">
+              @for (tag of concept.tags; track tag) {
+                <span class="text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-subtle)] px-2 py-0.5 rounded-md border border-[var(--border-color)]">
+                  #{{ tag }}
+                </span>
+              }
+            </div>
+          </div>
+
+          <div class="pt-6 mt-4 border-t border-[var(--border-color)] flex items-center justify-between">
+            <span class="text-[10px] font-bold text-[var(--text-muted)]">Verified Source:</span>
+            <a [href]="concept.officialSource.url" target="_blank" class="text-xs font-bold text-sky-600 dark:text-cyan-400 hover:underline flex items-center gap-1">
+              {{ concept.officialSource.name }} <mat-icon class="text-xs">open_in_new</mat-icon>
+            </a>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-span-full py-16 text-center space-y-3 bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl">
+          <mat-icon class="text-5xl text-[var(--text-muted)]">search_off</mat-icon>
+          <p class="text-sm font-bold text-[var(--text-main)]">No concepts found matching your search criteria.</p>
+          <button (click)="conceptSearchQuery.set(''); setCategory('all')" class="text-xs text-sky-500 font-bold underline">
+            Reset Filters
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Paginator Section 1 -->
+    <mat-paginator
+      [length]="filteredConcepts().length"
+      [pageSize]="pageSize()"
+      [pageIndex]="pageIndex()"
+      (page)="onPageChange($event)"
+      class="border border-[var(--border-color)] !rounded-2xl shadow-sm overflow-hidden"
+      aria-label="Select page of concepts">
+    </mat-paginator>
+
+  </section>
+
+  <!-- SECTION 2: LIVE NASA MEDIA ARCHIVE EXPLORER -->
+  <section class="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4">
+      <div>
+        <h2 class="text-2xl font-black flex items-center gap-2 text-[var(--text-main)]">
+          <mat-icon class="text-sky-500">travel_explore</mat-icon> Live NASA Deep-Space Vault
+        </h2>
+        <p class="text-xs text-[var(--text-muted)]">Query millions of high-resolution images directly from NASA's official image archives.</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input type="text" 
+               [ngModel]="nasaSearchQuery()" 
+               (ngModelChange)="nasaSearchQuery.set($event)"
+               (keyup.enter)="executeNasaSearch()" 
+               class="bg-[var(--bg-subtle)] text-[var(--text-main)] border border-[var(--border-color)] rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:border-sky-500 w-full sm:w-64" 
+               placeholder="Search James Webb, Black Hole, Mars..." />
+        <button mat-flat-button (click)="executeNasaSearch()" class="!bg-sky-600 dark:!bg-cyan-400 !text-white dark:!text-slate-950 font-bold !rounded-2xl !py-2.5">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Query Shortcuts -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1">
+      <span class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Quick Search:</span>
+      <button (click)="setQuickSearchTag('James Webb Deep Field')" class="px-3 py-1 rounded-xl text-[11px] font-bold bg-[var(--bg-subtle)] border border-[var(--border-color)] hover:border-sky-500 whitespace-nowrap">
+        James Webb
+      </button>
+      <button (click)="setQuickSearchTag('Hubble Carina Nebula')" class="px-3 py-1 rounded-xl text-[11px] font-bold bg-[var(--bg-subtle)] border border-[var(--border-color)] hover:border-sky-500 whitespace-nowrap">
+        Carina Nebula
+      </button>
+      <button (click)="setQuickSearchTag('Event Horizon Telescope Black Hole')" class="px-3 py-1 rounded-xl text-[11px] font-bold bg-[var(--bg-subtle)] border border-[var(--border-color)] hover:border-sky-500 whitespace-nowrap">
+        Black Hole
+      </button>
+      <button (click)="setQuickSearchTag('Perseverance Mars Rover')" class="px-3 py-1 rounded-xl text-[11px] font-bold bg-[var(--bg-subtle)] border border-[var(--border-color)] hover:border-sky-500 whitespace-nowrap">
+        Mars Rover
+      </button>
+    </div>
+
+    @if (loadingNasa()) {
+      <div class="flex flex-col items-center justify-center py-16 gap-3">
+        <mat-icon class="text-4xl text-sky-500 animate-bounce">rocket_launch</mat-icon>
+        <span class="text-xs font-mono text-[var(--text-muted)]">Querying AstroSphere NASA API Endpoint...</span>
+      </div>
+    } @else {
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        @for (item of nasaResults(); track item.nasaId) {
+          <div (click)="openMediaPreview(item)" 
+               class="group relative rounded-2xl overflow-hidden bg-slate-950 h-52 border border-slate-800 cursor-pointer shadow-md">
+            <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity p-4 flex flex-col justify-end">
+              <span class="text-xs font-bold text-white line-clamp-2 leading-tight group-hover:text-cyan-300 transition-colors">{{ item.title }}</span>
+              <span class="text-[10px] font-mono text-sky-400 mt-1 flex items-center gap-1">
+                <mat-icon class="text-xs">visibility</mat-icon> Inspect Telemetry
+              </span>
+            </div>
+          </div>
+@if (selectedMedia()) {
+    <div (click)="closeMediaPreview()" 
+         class="fixed inset-0 z-50 bg-black/20 dark:bg-black/40 flex items-center justify-center p-4 animate-modal-overlay">
+      
+      <div (click)="$event.stopPropagation()" 
+           class="bg-[var(--bg-surface)] border border-[var(--border-color)] rounded-3xl p-6 max-w-xs min-w-px shadow-2xl relative animate-modal-card">
+        
+        <div class="flex justify-between items-center gap-4 border-b border-[var(--border-color)] pb-3">
+          <h3 class="text-lg font-black text-[var(--text-main)] truncate leading-tight">
+            {{ selectedMedia()?.title }}
+          </h3>
+          <button (click)="closeMediaPreview()" 
+                  class="text-[var(--text-muted)] hover:text-[var(--text-main)] p-1 rounded-xl transition-colors cursor-pointer flex items-center justify-center hover:bg-[var(--bg-subtle)]">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="w-full max-h-[50vh] rounded-2xl overflow-hidden bg-[var(--bg-subtle)] border border-[var(--border-color)] flex items-center justify-center p-2">
+          <img [src]="selectedMedia()?.imageUrl" 
+               [alt]="selectedMedia()?.title" 
+               class="max-h-[48vh] w-full object-contain rounded-xl" />
+        </div>
+
+        <p class="text-xs sm:text-sm text-[var(--text-muted)] max-h-28 overflow-y-auto leading-relaxed pr-1">
+          {{ selectedMedia()?.description }}
+        </p>
+
+        <div class="pt-3 border-t border-[var(--border-color)] flex items-center justify-between">
+          <span class="text-[10px] font-mono font-semibold text-[var(--text-muted)]">
+            ID: {{ selectedMedia()?.nasaId }}
+          </span>
+          
+          <a [href]="'https://images.nasa.gov/details/' + selectedMedia()?.nasaId" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 dark:bg-cyan-400 text-white dark:text-slate-950 text-xs font-bold hover:opacity-90 transition-all shadow-sm">
+            <span>View in NASA Archive</span>
+            <mat-icon class="text-xs">open_in_new</mat-icon>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  }
+        } @empty {
+          <div class="col-span-full py-12 text-center text-xs text-[var(--text-muted)]">
+            No NASA media records found for "{{ nasaSearchQuery() }}". Try another query above.
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+</div>
